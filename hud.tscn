@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4vkacxa6dhni"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2snw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0923971, 0.0923971, 0.092397, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_37p78"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_64ctp"]
+line_spacing = 5.0
+font = SubResource("SystemFont_37p78")
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37p78"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.180392, 0.180392, 0.180392, 1)
+expand_margin_left = 15.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8sq4i"]
+bg_color = Color(0.219134, 0.692684, 0.54483, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_640wx"]
+bg_color = Color(0.997541, 0.529265, 0.576277, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2258"]
+bg_color = Color(0.215686, 0.6, 0.6, 1)
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="NextPiecePanel" type="Panel" parent="."]
+offset_left = 425.0
+offset_top = 260.0
+offset_right = 625.0
+offset_bottom = 410.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n2snw")
+
+[node name="NextPieceLabel" type="Label" parent="NextPiecePanel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 195.0
+offset_bottom = 145.0
+theme_override_font_sizes/font_size = 30
+text = "NEXT:"
+label_settings = SubResource("LabelSettings_64ctp")
+horizontal_alignment = 1
+
+[node name="HoldPiecePanel" type="Panel" parent="."]
+offset_left = 425.0
+offset_top = 85.0
+offset_right = 625.0
+offset_bottom = 235.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n2snw")
+
+[node name="HoldPieceLabel" type="Label" parent="HoldPiecePanel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 195.0
+offset_bottom = 145.0
+theme_override_font_sizes/font_size = 30
+text = "HELD:"
+label_settings = SubResource("LabelSettings_64ctp")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 425.0
+offset_top = 435.0
+offset_right = 625.0
+offset_bottom = 660.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="StatsLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_37p78")
+text = "Singles: 
+Doubles:
+Triples:
+Tetrises:
+T-Spin Singles:
+T-Spin Doubles:
+T-Spin Triples:"
+
+[node name="GameOverLabel" type="Label" parent="."]
+offset_left = 150.0
+offset_top = 200.0
+offset_right = 450.0
+offset_bottom = 267.0
+rotation = 1.0472
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+
+[node name="StartGameButton" type="Button" parent="."]
+offset_left = 435.0
+offset_top = 25.0
+offset_right = 615.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/hover = SubResource("StyleBoxFlat_8sq4i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_640wx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a2258")
+text = "NEW GAME"
