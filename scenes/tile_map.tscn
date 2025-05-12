@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dpvkkgufxtrfo" path="res://assets/tetrominoes.png" id="1_47enk"]
 [ext_resource type="Script" uid="uid://cpqh3ps0gi5sh" path="res://scripts/BoardLayer.gd" id="2_jx7lj"]
 [ext_resource type="Script" uid="uid://d18faprdvmdgu" path="res://scripts/ActiveLayer.gd" id="3_jx7lj"]
-[ext_resource type="PackedScene" uid="uid://b4vkacxa6dhni" path="res://hud.tscn" id="4_dohrl"]
+[ext_resource type="PackedScene" uid="uid://b4vkacxa6dhni" path="res://scenes/hud.tscn" id="4_dohrl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jx7lj"]
 texture = ExtResource("1_47enk")
