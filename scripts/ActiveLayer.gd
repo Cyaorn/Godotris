@@ -113,17 +113,17 @@ func _process(_delta):
 	movement
 	'''
 	if (is_running):
-		if Input.is_action_pressed("ui_left"):
+		# enables single-tap to always travel 1 square max
+		# if horizontal_speed is too fast holding might feel too slippery
+		if Input.is_action_just_pressed("ui_left"):
+			steps[0] = steps_req
+		elif Input.is_action_just_pressed("ui_right"):
+			steps[1] = steps_req
+		# ------------------------------------------------
+		elif Input.is_action_pressed("ui_left"):
 			steps[0] += horizontal_speed
 		elif Input.is_action_pressed("ui_right"):
 			steps[1] += horizontal_speed
-		# enables single-tap to always travel 1 square max
-		# if horizontal_speed is too fast holding might feel too slippery
-		elif Input.is_action_just_released("ui_left"):
-			steps[0] = steps_req + 1
-		elif Input.is_action_just_released("ui_right"):
-			steps[1] = steps_req + 1
-		# ------------------------------------------------
 		elif Input.is_action_pressed("ui_down"):
 			steps[2] += fall_speed
 		elif Input.is_action_just_pressed("ui_up"):
