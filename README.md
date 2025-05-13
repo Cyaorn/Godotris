@@ -5,6 +5,7 @@ Tutorial used: https://www.youtube.com/watch?v=2T2Fkzwf6FM
 
 # Planned Features
 
+- [ ] Ghost piece
 - [ ] Hard drop 
 - [ ] Held pieces
 - [ ] Wall kicking
