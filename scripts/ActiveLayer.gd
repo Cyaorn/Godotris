@@ -127,7 +127,9 @@ func _process(_delta):
 		elif Input.is_action_pressed("ui_down"):
 			steps[2] += fall_speed
 		elif Input.is_action_just_pressed("ui_up"):
-			pass # hard drop
+			clear_piece()
+			cur_pos = ghost_pos
+			steps[2] = steps_req
 			
 		# must add these to the Input Map in Project > Settings
 		if Input.is_action_just_pressed("ui_q"):
@@ -195,12 +197,6 @@ func move_piece(dir):
 	else:
 		if dir == Vector2i.DOWN:
 			land_piece()
-			BoardLayer.check_rows()
-			piece_type = next_piece_type
-			piece_atlas = next_piece_atlas
-			next_piece_type = pick_piece()
-			next_piece_atlas = Vector2i(shapes.find(next_piece_type), 0)
-			clear_panel()
 			create_piece()
 			check_game_over()
 
@@ -251,6 +247,14 @@ func land_piece():
 	for i in active_piece:
 		erase_cell(cur_pos + i)
 		BoardLayer.set_cell(cur_pos + i, tile_id, piece_atlas)
+	
+	# reset a bunch of stuff before the next piece
+	BoardLayer.check_rows()
+	piece_type = next_piece_type
+	piece_atlas = next_piece_atlas
+	next_piece_type = pick_piece()
+	next_piece_atlas = Vector2i(shapes.find(next_piece_type), 0)
+	clear_panel()
 		
 func clear_panel():
 	for i in range(14, 19):

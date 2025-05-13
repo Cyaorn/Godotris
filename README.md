@@ -6,7 +6,7 @@ Tutorial used: https://www.youtube.com/watch?v=2T2Fkzwf6FM
 # Planned Features
 
 - [x] Ghost piece
-- [ ] Hard drop 
+- [x] Hard drop 
 - [ ] More precise controls
 - [ ] Held pieces
 - [ ] Wall kicking
