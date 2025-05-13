@@ -107,11 +107,6 @@ func new_game():
 	create_piece()
 	
 func _process(_delta):
-	'''
-	Future implementation would probably involve using just_pressed for
-	single-tap movement with a buffer timer before allowing full left or right
-	movement
-	'''
 	if (is_running):
 		# enables single-tap to always travel 1 square max
 		# if horizontal_speed is too fast holding might feel too slippery
