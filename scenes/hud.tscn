@@ -9,6 +9,7 @@ border_width_bottom = 5
 border_color = Color(0.0923971, 0.0923971, 0.092397, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_37p78"]
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_64ctp"]
 line_spacing = 5.0

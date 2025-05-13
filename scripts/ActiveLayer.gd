@@ -61,6 +61,7 @@ var steps : Array
 const steps_req : int = 50
 const start_pos := Vector2i(5, 1)
 var cur_pos : Vector2i
+var ghost_pos : Vector2i
 var speed : float
 var fall_speed : int
 var horizontal_speed : int
@@ -72,6 +73,7 @@ var rotation_index : int = 0
 var active_piece : Array
 
 # tilemap variables
+var ghost_tile_id : int = 0
 var tile_id : int = 1
 var piece_atlas : Vector2i
 var next_piece_atlas : Vector2i
@@ -156,6 +158,8 @@ func create_piece():
 	rotation_index = 0
 	cur_pos = start_pos
 	active_piece = piece_type[rotation_index]
+	ghost_pos = find_ghost_pos()
+	draw_ghost(active_piece, piece_atlas)
 	draw_piece(active_piece, cur_pos, piece_atlas)
 	
 	# draw upcoming piece also
@@ -171,15 +175,22 @@ func draw_piece(piece, pos, atlas):
 
 func rotate_piece(is_clockwise):
 	var mod = 1 if is_clockwise else -1
+	clear_ghost()
 	clear_piece()
 	rotation_index = (rotation_index + mod) % 4
 	active_piece = piece_type[rotation_index]
+	update_ghost_pos()
+	draw_ghost(active_piece, piece_atlas)
 	draw_piece(active_piece, cur_pos, piece_atlas)
 
 func move_piece(dir):
 	if can_move(dir):
+		clear_ghost()
 		clear_piece()
 		cur_pos += dir
+		update_ghost_pos()
+		# draw ghost first so it is automatically overlapped by piece
+		draw_ghost(active_piece, piece_atlas)
 		draw_piece(active_piece, cur_pos, piece_atlas)
 	else:
 		if dir == Vector2i.DOWN:
@@ -192,6 +203,29 @@ func move_piece(dir):
 			clear_panel()
 			create_piece()
 			check_game_over()
+
+func find_ghost_pos():
+	# Check starting from the top and pick the first spot before the piece hits
+	# 	something to prevent the ghost from going past overhangs
+	# Also want to start counting from past the current position to prevent the
+	#	ghost from appearing above the actual piece
+	for i in range(cur_pos.y + 1, ROWS):
+		for j in active_piece:
+			if not is_free(Vector2i(cur_pos.x, i) + j):
+				return Vector2i(cur_pos.x, i - 1)
+	# return bottom row if no obstructions
+	return Vector2i(cur_pos.x, ROWS - 1)
+
+func clear_ghost():
+	for i in active_piece:
+		erase_cell(ghost_pos + i)
+	
+func draw_ghost(piece, atlas):
+	for i in piece:
+		set_cell(ghost_pos + i, ghost_tile_id, atlas)
+
+func update_ghost_pos():
+	ghost_pos = find_ghost_pos()
 
 func can_move(dir):
 	# check if there is space to move
