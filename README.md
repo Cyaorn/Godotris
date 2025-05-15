@@ -14,3 +14,5 @@ Tutorial used: https://www.youtube.com/watch?v=2T2Fkzwf6FM
 - [ ] Accurate line clear/T-spin detection
 - [ ] Combo detection
 - [ ] Audio/Visual effects (maybe)
+
+![T-Spin Triple](t-spin-triple.gif)
