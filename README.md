@@ -8,7 +8,7 @@ Tutorial used: https://www.youtube.com/watch?v=2T2Fkzwf6FM
 - [x] Ghost piece
 - [x] Hard drop 
 - [x] More precise controls
-- [ ] Held pieces
+- [x] Held pieces
 - [ ] Wall kicking
 - [ ] Buffer window before sticking a piece
 - [ ] Accurate line clear/T-spin detection
