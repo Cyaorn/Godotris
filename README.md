@@ -9,7 +9,7 @@ Tutorial used: https://www.youtube.com/watch?v=2T2Fkzwf6FM
 - [x] Hard drop 
 - [x] More precise controls
 - [x] Held pieces
-- [ ] Wall kicking
+- [x] Wall kicking
 - [ ] Buffer window before sticking a piece
 - [ ] Accurate line clear/T-spin detection
 - [ ] Combo detection

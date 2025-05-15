@@ -4,51 +4,84 @@ extends TileMapLayer
 
 # R: 90, 2: 180, L: 270 by SRS standard
 
-var i_0 := [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
-var i_R := [Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(2, 3)]
-var i_2 := [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)]
-var i_L := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3)]
-var i_piece := [i_0, i_R, i_2, i_L]
+var _i_0 := [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)] 
+var _i_R := [Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(2, 3)]
+var _i_2 := [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)]
+var _i_L := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3)]
+var I := [_i_0, _i_R, _i_2, _i_L]
 
-var j_0 := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
-var j_R := [Vector2i(1, 0), Vector2i(2, 0), Vector2i(1, 1), Vector2i(1, 2)]
-var j_2 := [Vector2i(2, 2), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
-var j_L := [Vector2i(1, 0), Vector2i(0, 2), Vector2i(1, 1), Vector2i(1, 2)]
-var j_piece := [j_0, j_R, j_2, j_L]
+var _j_0 := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+var _j_R := [Vector2i(1, 0), Vector2i(2, 0), Vector2i(1, 1), Vector2i(1, 2)]
+var _j_2 := [Vector2i(2, 2), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+var _j_L := [Vector2i(1, 0), Vector2i(0, 2), Vector2i(1, 1), Vector2i(1, 2)]
+var J := [_j_0, _j_R, _j_2, _j_L]
 
-var l_0 := [Vector2i(2, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
-var l_R := [Vector2i(1, 0), Vector2i(2, 2), Vector2i(1, 1), Vector2i(1, 2)]
-var l_2 := [Vector2i(0, 2), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
-var l_L := [Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 1), Vector2i(1, 2)]
-var l := [l_0, l_R, l_2, l_L]
+var _l_0 := [Vector2i(2, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+var _l_R := [Vector2i(1, 0), Vector2i(2, 2), Vector2i(1, 1), Vector2i(1, 2)]
+var _l_2 := [Vector2i(0, 2), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+var _l_L := [Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 1), Vector2i(1, 2)]
+var L := [_l_0, _l_R, _l_2, _l_L]
 
 # this feels largely unnecessary but keeping it for uniformity
-var o_0 := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
-var o_R := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
-var o_2 := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
-var o_L := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
-var o := [o_0, o_R, o_2, o_L]
+var _o_0 := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
+var _o_R := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
+var _o_2 := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
+var _o_L := [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
+var O := [_o_0, _o_R, _o_2, _o_L]
 
-var s_0 := [Vector2i(2, 0), Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1)]
-var s_R := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1), Vector2i(2, 2)]
-var s_2 := [Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2), Vector2i(0, 2)]
-var s_L := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1), Vector2i(2, 2)]
-var s := [s_0, s_R, s_2, s_L]
+var _s_0 := [Vector2i(2, 0), Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1)]
+var _s_R := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1), Vector2i(2, 2)]
+var _s_2 := [Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2), Vector2i(0, 2)]
+var _s_L := [Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1), Vector2i(2, 2)]
+var S := [_s_0, _s_R, _s_2, _s_L]
 
-var t_0 := [Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
-var t_R := [Vector2i(1, 0), Vector2i(1, 2), Vector2i(1, 1), Vector2i(2, 1)]
-var t_2 := [Vector2i(1, 2), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
-var t_L := [Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 2)]
-var t := [t_0, t_R, t_2, t_L]
+var _t_0 := [Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+var _t_R := [Vector2i(1, 0), Vector2i(1, 2), Vector2i(1, 1), Vector2i(2, 1)]
+var _t_2 := [Vector2i(1, 2), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+var _t_L := [Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 2)]
+var T := [_t_0, _t_R, _t_2, _t_L]
 
-var z_0 := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1)]
-var z_R := [Vector2i(2, 0), Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2)]
-var z_2 := [Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 2), Vector2i(2, 2)]
-var z_L := [Vector2i(2, 0), Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2)]
-var z := [z_0, z_R, z_2, z_L]
+var _z_0 := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1)]
+var _z_R := [Vector2i(2, 0), Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2)]
+var _z_2 := [Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 2), Vector2i(2, 2)]
+var _z_L := [Vector2i(2, 0), Vector2i(2, 1), Vector2i(1, 1), Vector2i(1, 2)]
+var Z := [_z_0, _z_R, _z_2, _z_L]
+
+# 0->R,2->R / 0->L,0->L / R->0,R->2 / L->0,L->2 are the same tests
+var _to_R := [Vector2i(0, 0), Vector2i(-1, 0), Vector2i(-1, -1), 
+			  Vector2i(0, 2), Vector2i(-1, 2)]
+var _from_R := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(1, 1), 
+				Vector2i(0, -2), Vector2i(1, -2)]
+var _to_L := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(1, -1), 
+			  Vector2i(0, 2), Vector2i(1, 2)]
+var _from_L := [Vector2i(0, 0), Vector2i(-1, 0), Vector2i(-1, 1), 
+				Vector2i(0, -2), Vector2i(1, -2)]
+var rot_tests = [_to_R, _from_R, _from_R, _to_R, 
+				 _to_L, _from_L, _from_L, _to_L]
+
+# I piece rotation follows a different set of rules
+var _i0_R := [Vector2i(0, 0), Vector2i(-2, 0), Vector2i(1, 0), 
+			  Vector2i(-2, 1), Vector2i(1, -2)]
+var _iR_0 := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(-1, 0), 
+			  Vector2i(2, -1), Vector2i(-1, 2)]
+var _iR_2 := [Vector2i(0, 0), Vector2i(-1, 0), Vector2i(2, 0), 
+			  Vector2i(-1, -2), Vector2i(2, 1)]
+var _i2_R := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(-2, 0), 
+			  Vector2i(1, 2), Vector2i(-2, -1)]
+var _i2_L := [Vector2i(0, 0), Vector2i(2, 0), Vector2i(-1, 0), 
+			  Vector2i(2, -1), Vector2i(-1, +2)]
+var _iL_2 := [Vector2i(0, 0), Vector2i(-2, 0), Vector2i(1, 0), 
+			  Vector2i(-2, 1), Vector2i(1, -2)]
+var _iL_0 := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(-2, 0), 
+			  Vector2i(1, 2), Vector2i(-2, -1)]
+var _i0_L := [Vector2i(0, 0), Vector2i(-1, 0), Vector2i(2, 0), 
+			  Vector2i(-1, -2), Vector2i(2, 1)]
+var i_rot_tests = [_i0_R, _iR_0, _iR_2, _i2_R, _i2_L, _iL_2, _iL_0, _i0_L]
+
+# test indices correspond to [0->R, R->0, R->2, 2->R, 2->L, L->2, L->0, 0->L]
 
 # indices need to match order of squares in TileSet
-var shapes := [i_piece, t, o, z, s, l, j_piece]
+var shapes := [I, T, O, Z, S, L, J]
 var shapes_bag = shapes.duplicate()
 
 # grid variables
@@ -138,11 +171,9 @@ func _process(_delta):
 			
 		# must add these to the Input Map in Project > Settings
 		if Input.is_action_just_pressed("ui_left"):
-			if can_rotate(false):
-				rotate_piece(false)
+			rotate_piece(false)
 		elif Input.is_action_just_pressed("ui_up"):
-			if can_rotate(true):
-				rotate_piece(true)
+			rotate_piece(true)
 		
 		# apply downward movement every frame
 		steps[2] += speed 
@@ -196,11 +227,15 @@ func draw_piece(piece, pos, atlas):
 
 # handles logic involving rotating a piece
 func rotate_piece(is_clockwise):
+	var kick = can_rotate(is_clockwise)
+	if kick == null:  # cancel rotation if cannot rotated
+		return
 	var mod = 1 if is_clockwise else -1
 	clear_ghost()
 	clear_piece()
 	rotation_index = (rotation_index + mod) % 4
 	active_piece = piece_type[rotation_index]
+	cur_pos += kick  # adjust cursor position by the amount of kick needed
 	update_ghost_pos()
 	draw_ghost(active_piece, piece_atlas)
 	draw_piece(active_piece, cur_pos, piece_atlas)
@@ -286,15 +321,21 @@ func can_move(dir):
 			return false
 	return true
 
-# currently checks if piece is able to rotate freely,
-#  will implement wall kicking in the future
+# checks if piece is able to rotate freely
+#  if a test passes, returns the distance needed to kick the piece
 func can_rotate(is_clockwise):
 	var mod = 1 if is_clockwise else -1
 	var temp_rotation_index = (rotation_index + mod) % 4
-	for i in piece_type[temp_rotation_index]:
-		if not is_free(i + cur_pos):
-			return false
-	return true
+	var rot_test = _get_rot_test(is_clockwise)
+	for test in rot_test:
+		var passed = true
+		for i in piece_type[temp_rotation_index]:
+			if not is_free(i + cur_pos + test):
+				passed = false
+				break
+		if passed:
+			return test
+	return null
 
 # checks if a specific tile is available
 func is_free(pos):
@@ -330,3 +371,28 @@ func check_game_over():
 			land_piece()
 			$board/HUD/GameOverLabel.show()
 			is_running = false
+
+# helper to find which rotation tests to perform in the given state
+#  There's definitely a way to make this a more concise formula 
+#  but the match statements are much more readable
+func _get_rot_test(is_clockwise):
+	var index
+	# print(rotation_index)
+	if is_clockwise: # 0->R, R->2, 2->L, L->0
+		match rotation_index:
+			0, -4: index = 0
+			1, -3: index = 2
+			2, -2: index = 4
+			3, -1: index = 6
+			_: print("This should never happen")
+	else:  # 0->L, L->2, 2->R, R->0
+		match rotation_index:
+			0, -4: index = 7
+			1, -3: index = 5
+			2, -2: index = 3
+			3, -1: index = 1
+			_: print("This should never happen")
+	if piece_type == I:
+		return i_rot_tests[index]
+	else:
+		return rot_tests[index]
