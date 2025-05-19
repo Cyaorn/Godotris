@@ -60,7 +60,7 @@ func new_game():
 	
 	# clear everything
 	clear_piece()
-	# clear_board()
+	clear_board()
 	clear_panel()
 	
 	piece_type = _pick_piece()

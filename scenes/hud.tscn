@@ -24,7 +24,7 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.180392, 0.180392, 0.180392, 1)
 expand_margin_left = 15.0
-expand_margin_top = 15.0
+expand_margin_top = 5.0
 expand_margin_right = 15.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8sq4i"]
@@ -78,9 +78,9 @@ horizontal_alignment = 1
 offset_left = 425.0
 offset_top = 435.0
 offset_right = 625.0
-offset_bottom = 660.0
+offset_bottom = 685.0
 theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 15
 
 [node name="StatsLabel" type="Label" parent="MarginContainer"]
@@ -93,7 +93,9 @@ Triples:
 Tetrises:
 T-Spin Singles:
 T-Spin Doubles:
-T-Spin Triples:"
+T-Spin Triples:
+Combo:
+Max Combo:"
 
 [node name="GameOverLabel" type="Label" parent="."]
 offset_left = 150.0

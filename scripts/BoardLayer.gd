@@ -8,8 +8,9 @@ const ROWS : int = 20
 var tile_id : int = 1
 
 # score variables
-var scores = [0, 0, 0, 0, 0, 0, 0]
-# [single, double, triple, tetris, T-spin single, T-double, T-triple]
+var scores = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+# [Single,        Double,   Triple,   Tetris, 
+#  T-spin single, T-double, T-triple, Combo,  Max Combo]
 
 func _ready():
 	pass
@@ -54,10 +55,11 @@ func clear_board():
 			erase_cell(Vector2i(j + 1, i + 1))
 			
 func reset_score():
-	scores = [0, 0, 0, 0, 0, 0, 0]
+	scores = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 	_update_score_label()
 	
 func update_score(is_tspin, total_lines):
+	# handles T-spin detection logic
 	if is_tspin:
 		match total_lines:
 			1: scores[4] += 1
@@ -69,6 +71,13 @@ func update_score(is_tspin, total_lines):
 			2: scores[1] += 1
 			3: scores[2] += 1
 			4: scores[3] += 1
+			
+	# handles combo logic
+	if total_lines > 0:
+		scores[7] += 1
+		scores[8] = max(scores[7], scores[8])
+	else:
+		scores[7] = 0
 	_update_score_label()
 	
 func _update_score_label():
@@ -78,5 +87,7 @@ Triples: %d
 Tetrises: %d
 T-Spin Singles: %d
 T-Spin Doubles: %d
-T-Spin Triples: %d''' % scores
+T-Spin Triples: %d
+Combo: %d
+Max Combo: %d''' % scores
 	
