@@ -181,8 +181,8 @@ func move_piece(dir):
 		clear_ghost()
 		clear_piece()
 		cur_pos += dir
-		_step_reset()
 		update_ghost_pos()
+		_step_reset()
 		# draw ghost first so it is automatically overlapped by piece
 		draw_ghost(active_piece, piece_atlas)
 		draw_piece(active_piece, cur_pos, piece_atlas)
