@@ -19,6 +19,8 @@ var ghost_pos : Vector2i
 var speed : float
 var fall_speed : int
 var horizontal_speed : int
+var reset_max : int = 15
+var resets : int
 
 # game piece variables
 var piece_type
@@ -49,6 +51,7 @@ func new_game():
 	fall_speed = 10
 	horizontal_speed = 15
 	steps = [0, 0, 0] # [left, right, down]
+	resets = 0
 	is_running = true
 	$board/HUD/GameOverLabel.hide()
 	BoardLayer.reset_score()
@@ -67,28 +70,37 @@ func new_game():
 # handles all types of inputs
 func _process(_delta):
 	if (is_running):
-		# enables single-tap to always travel 1 square max
-		# if horizontal_speed is too fast holding might feel too slippery
-		if Input.is_action_just_pressed("ui_a"):
-			steps[0] = steps_req
-		elif Input.is_action_just_pressed("ui_d"):
-			steps[1] = steps_req
-		# ------------------------------------------------
-		elif Input.is_action_just_pressed("ui_w"):
+		# hard drop
+		if Input.is_action_just_pressed("ui_w"):
 			clear_piece()
 			cur_pos = ghost_pos
 			steps[2] = steps_req
+		# swap
 		elif Input.is_action_just_pressed("ui_q"):
 			if not used_swap:
 				hold_piece()
 				# create_piece()
 				used_swap = true
+		# enables single-tap to always travel 1 square
+		elif Input.is_action_just_pressed("ui_a"):
+			steps[0] = steps_req
+		elif Input.is_action_just_pressed("ui_d"):
+			steps[1] = steps_req
+		# ------------------------------------------------
+		# hopefully makes left/right controls a bit less slippery
+		elif Input.is_action_just_released("ui_a"):
+			steps[0] = 0
+		elif Input.is_action_just_released("ui_d"):
+			steps[1] = 0
 		elif Input.is_action_pressed("ui_a"):
 			steps[0] += horizontal_speed
 		elif Input.is_action_pressed("ui_d"):
 			steps[1] += horizontal_speed
 		elif Input.is_action_pressed("ui_s"):
-			steps[2] += fall_speed
+			if cur_pos == ghost_pos:
+				steps[2] += fall_speed / 4
+			else:
+				steps[2] += fall_speed
 			
 		# must add these to the Input Map in Project > Settings
 		if Input.is_action_just_pressed("ui_left"):
@@ -127,6 +139,7 @@ func create_piece():
 	# reset variables
 	steps = [0, 0, 0] # [left, right, down]
 	rotation_index = 0
+	resets = 0
 	cur_pos = start_pos
 	active_piece = piece_type[rotation_index]
 	update_ghost_pos()
@@ -158,6 +171,7 @@ func rotate_piece(is_clockwise):
 	active_piece = piece_type[rotation_index]
 	cur_pos += kick  # adjust cursor position by the amount of kick needed
 	update_ghost_pos()
+	_step_reset()
 	draw_ghost(active_piece, piece_atlas)
 	draw_piece(active_piece, cur_pos, piece_atlas)
 
@@ -167,6 +181,7 @@ func move_piece(dir):
 		clear_ghost()
 		clear_piece()
 		cur_pos += dir
+		_step_reset()
 		update_ghost_pos()
 		# draw ghost first so it is automatically overlapped by piece
 		draw_ghost(active_piece, piece_atlas)
@@ -176,6 +191,13 @@ func move_piece(dir):
 			land_piece()
 			create_piece()
 			check_game_over()
+
+# handles logic to reset the placement timer on rotate or move
+func _step_reset():
+	if resets < reset_max and cur_pos == ghost_pos:
+		print("Reset count: " + str(resets))
+		steps[2] = 0
+		resets += 1
 
 # clears the held piece panel
 func clear_held():

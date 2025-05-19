@@ -10,7 +10,7 @@ Tutorial used: https://www.youtube.com/watch?v=2T2Fkzwf6FM
 - [x] More precise controls
 - [x] Held pieces
 - [x] Wall kicking
-- [ ] Buffer window before sticking a piece
+- [x] Buffer window before sticking a piece
 - [ ] Accurate line clear/T-spin detection
 - [ ] Combo detection
 - [ ] Audio/Visual effects (maybe)
