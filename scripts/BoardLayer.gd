@@ -20,8 +20,9 @@ func _process(_delta):
 func is_free(pos):
 	return get_cell_source_id(pos) == -1
 
-func check_rows():
+func check_rows(is_tspin):
 	var row : int = ROWS
+	var total_lines := 0
 	while row > 0:
 		var count = 0
 		for i in range(COLS):
@@ -30,10 +31,10 @@ func check_rows():
 		# if row is full then erase it	
 		if count == COLS:
 			shift_rows(row)
-			scores[0] += 1
+			total_lines += 1
 		else:
 			row -= 1
-	update_score()
+	update_score(is_tspin, total_lines)
 
 func shift_rows(row):
 	var atlas
@@ -54,9 +55,23 @@ func clear_board():
 			
 func reset_score():
 	scores = [0, 0, 0, 0, 0, 0, 0]
-	update_score()
+	_update_score_label()
 	
-func update_score():
+func update_score(is_tspin, total_lines):
+	if is_tspin:
+		match total_lines:
+			1: scores[4] += 1
+			2: scores[5] += 1
+			3: scores[6] += 1
+	else:
+		match total_lines:
+			1: scores[0] += 1
+			2: scores[1] += 1
+			3: scores[2] += 1
+			4: scores[3] += 1
+	_update_score_label()
+	
+func _update_score_label():
 	$HUD/MarginContainer/StatsLabel.text = '''Singles: %d
 Doubles: %d
 Triples: %d

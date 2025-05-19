@@ -21,6 +21,7 @@ var fall_speed : int
 var horizontal_speed : int
 var reset_max : int = 15
 var resets : int
+var rotated_last : bool = false
 
 # game piece variables
 var piece_type
@@ -52,13 +53,14 @@ func new_game():
 	horizontal_speed = 15
 	steps = [0, 0, 0] # [left, right, down]
 	resets = 0
+	rotated_last = false
 	is_running = true
 	$board/HUD/GameOverLabel.hide()
 	BoardLayer.reset_score()
 	
 	# clear everything
 	clear_piece()
-	clear_board()
+	# clear_board()
 	clear_panel()
 	
 	piece_type = _pick_piece()
@@ -174,6 +176,7 @@ func rotate_piece(is_clockwise):
 	_step_reset()
 	draw_ghost(active_piece, piece_atlas)
 	draw_piece(active_piece, cur_pos, piece_atlas)
+	rotated_last = true
 
 # handles logic involving moving a piece in any direction a single tile
 func move_piece(dir):
@@ -183,6 +186,7 @@ func move_piece(dir):
 		cur_pos += dir
 		update_ghost_pos()
 		_step_reset()
+		rotated_last = false
 		# draw ghost first so it is automatically overlapped by piece
 		draw_ghost(active_piece, piece_atlas)
 		draw_piece(active_piece, cur_pos, piece_atlas)
@@ -294,8 +298,9 @@ func land_piece():
 		erase_cell(cur_pos + i)
 		BoardLayer.set_cell(cur_pos + i, tile_id, piece_atlas)
 	
+	var is_tspin = _check_tspin()
 	# reset a bunch of stuff before the next piece
-	BoardLayer.check_rows()
+	BoardLayer.check_rows(is_tspin)
 	cycle_piece()
 	clear_panel()
 	used_swap = false # reset swap status after every piece
@@ -326,34 +331,45 @@ func _get_rot_test(is_clockwise):
 	if is_clockwise: # 0->R, R->2, 2->L, L->0
 		match rotation_index:
 			0, -4: 
-				print("0 -> R")
+				# print("0 -> R")
 				index = 0
 			1, -3: 
-				print("R -> 2")
+				# print("R -> 2")
 				index = 2
 			2, -2: 
-				print("2 -> L")
+				# print("2 -> L")
 				index = 4
 			3, -1: 
-				print("L -> 0")
+				# print("L -> 0")
 				index = 6
-			_: print("This should never happen")
 	else:  # 0->L, L->2, 2->R, R->0
 		match rotation_index:
 			0, -4: 
-				print("0 -> L")
+				# print("0 -> L")
 				index = 7
 			1, -3: 
-				print("R -> 0")
+				# print("R -> 0")
 				index = 1
 			2, -2: 
-				print("2 -> R")
+				# print("2 -> R")
 				index = 3
 			3, -1: 
-				print("L -> 2")
+				# print("L -> 2")
 				index = 5
-			_: print("This should never happen")
 	if piece_type == PieceData.I:
 		return PieceData.i_rot_tests[index]
 	else:
 		return PieceData.rot_tests[index]
+
+# checks if the current position was reached via T-spin
+func _check_tspin():
+	if not (piece_type == PieceData.T and rotated_last):
+		return false 
+	const corners = [Vector2i(0, 0), Vector2i(2, 0), Vector2i(0, 2), Vector2i(2, 2)]
+	var count = 0
+	for corner in corners:
+		if not is_free(cur_pos + corner):
+			count += 1
+	# print("Free corners: " + str(count))
+	return count >= 3
+	
